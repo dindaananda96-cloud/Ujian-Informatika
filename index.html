@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Ujian Esai Informatika Kelas 7 - MTsN 1 Balikpapan</title>
+    <title>Portal Ujian Esai Informatika - MTsN 1 Balikpapan</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -29,7 +29,7 @@
             <div class="flex items-center space-x-3">
                 <i data-lucide="shield-alert" class="w-8 h-8 text-amber-400"></i>
                 <div>
-                    <h1 class="font-bold text-lg leading-tight">Proctored CBT - Informatika Kelas 7</h1>
+                    <h1 class="font-bold text-lg leading-tight">Proctored CBT - Informatika</h1>
                     <p class="text-xs text-indigo-200">MTs Negeri 1 Balikpapan - TA 2026/2027</p>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="text-center mb-6">
                 <i data-lucide="file-text" class="w-12 h-12 mx-auto text-indigo-600 mb-2"></i>
                 <h2 class="text-2xl font-bold text-slate-800">Ujian Esai Informatika</h2>
-                <p class="text-sm text-slate-500">Silakan isi identitas dengan benar sebelum memulai ujian.</p>
+                <p class="text-sm text-slate-500">Pilih tingkat kelas dan isi identitas Anda untuk memulai ujian.</p>
             </div>
 
             <form id="form-identitas" onsubmit="startExam(event)" class="space-y-4">
@@ -79,20 +79,19 @@
                     <p class="text-xs text-slate-400 mt-1">* Wajib mengisikan nama lengkap (minimal 2 kata)</p>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Tingkat *</label>
+                        <select id="input-tingkat" required onchange="updateClassOptions()" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white">
+                            <option value="" disabled selected>Pilih Tingkat</option>
+                            <option value="7">Kelas 7</option>
+                            <option value="9">Kelas 9</option>
+                        </select>
+                    </div>
                     <div>
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Kelas *</label>
                         <select id="input-kelas" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none bg-white">
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            <option value="71">Kelas 71</option>
-                            <option value="72">Kelas 72</option>
-                            <option value="73">Kelas 73</option>
-                            <option value="74">Kelas 74</option>
-                            <option value="75">Kelas 75</option>
-                            <option value="76">Kelas 76</option>
-                            <option value="77">Kelas 77</option>
-                            <option value="78">Kelas 78</option>
-                            <option value="79">Kelas 79</option>
+                            <option value="" disabled selected>Pilih Tingkat Dulu</option>
                         </select>
                     </div>
                     <div>
@@ -150,7 +149,7 @@
                             </span>
                         </div>
 
-                        <div id="soal-container" class="text-slate-800 font-medium leading-relaxed allow-select bg-slate-50 p-4 rounded-lg border border-slate-200"></div>
+                        <div id="soal-container" class="text-slate-800 font-medium leading-relaxed allow-select bg-slate-50 p-4 rounded-lg border border-slate-200 space-y-4"></div>
 
                         <div class="space-y-2">
                             <label class="block text-sm font-semibold text-slate-700">Jawaban Anda:</label>
@@ -234,7 +233,7 @@
                 </div>
                 <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-xl border border-white/20 text-center">
                     <span class="text-xs text-indigo-200 block">Total Soal Dijawab</span>
-                    <span id="res-dijawab-count" class="text-2xl font-bold text-amber-300">0 / 13</span>
+                    <span id="res-dijawab-count" class="text-2xl font-bold text-amber-300">0 / 10</span>
                 </div>
             </div>
 
@@ -273,10 +272,117 @@
     </footer>
 
     <script>
-        // URL Apps Script milik Anda
         const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGypleWuX9ZdchmA-JRBLvGwOWvr_1KSnOYogGsD81mKitEQE5DtLohGUYH6gU_Obr/exec';
 
-        const DAFTAR_SOAL = [
+        // TAMPILAN GAMBAR SVG 1 (TREE DATA STRUCTURE)
+        const SVG_GAMBAR_1 = `
+            <div class="flex flex-col items-center justify-center my-4 p-4 bg-white rounded-lg border border-slate-200 shadow-inner">
+                <p class="text-xs font-bold text-slate-500 mb-2">[Gambar 1: Struktur Data Tree]</p>
+                <svg viewBox="0 0 320 280" class="w-64 h-auto">
+                    <!-- Lines -->
+                    <line x1="160" y1="30" x2="100" y2="90" stroke="#334155" stroke-width="2"/>
+                    <line x1="160" y1="30" x2="220" y2="90" stroke="#334155" stroke-width="2"/>
+                    
+                    <line x1="100" y1="90" x2="50" y2="150" stroke="#334155" stroke-width="2"/>
+                    <line x1="100" y1="90" x2="140" y2="150" stroke="#334155" stroke-width="2"/>
+                    <line x1="220" y1="90" x2="250" y2="150" stroke="#334155" stroke-width="2"/>
+                    
+                    <line x1="140" y1="150" x2="110" y2="220" stroke="#334155" stroke-width="2"/>
+                    <line x1="140" y1="150" x2="170" y2="220" stroke="#334155" stroke-width="2"/>
+                    <line x1="250" y1="150" x2="220" y2="220" stroke="#334155" stroke-width="2"/>
+
+                    <!-- Nodes -->
+                    <!-- Level 0 -->
+                    <circle cx="160" cy="30" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="160" y="35" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">1</text>
+
+                    <!-- Level 1 -->
+                    <circle cx="100" cy="90" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="100" y="95" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">7</text>
+
+                    <circle cx="220" cy="90" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="220" y="95" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">9</text>
+
+                    <!-- Level 2 -->
+                    <circle cx="50" cy="150" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="50" y="155" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">2</text>
+
+                    <circle cx="140" cy="150" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="140" y="155" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">6</text>
+
+                    <circle cx="250" cy="150" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="250" y="155" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">9</text>
+
+                    <!-- Level 3 -->
+                    <circle cx="110" cy="220" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="110" y="225" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">5</text>
+
+                    <circle cx="170" cy="220" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="170" y="225" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">11</text>
+
+                    <circle cx="220" cy="220" r="18" fill="#ffffff" stroke="#1e293b" stroke-width="2"/>
+                    <text x="220" y="225" text-anchor="middle" font-weight="bold" fill="#0f172a" font-size="14">5</text>
+                </svg>
+            </div>
+        `;
+
+        // TAMPILAN GAMBAR SVG 2 (GRAPH DATA STRUCTURE)
+        const SVG_GAMBAR_2 = `
+            <div class="flex flex-col items-center justify-center my-4 p-4 bg-white rounded-lg border border-slate-200 shadow-inner">
+                <p class="text-xs font-bold text-slate-500 mb-2">[Gambar 2: Struktur Data Graph Berbobot]</p>
+                <svg viewBox="0 0 360 200" class="w-80 h-auto">
+                    <!-- Edges -->
+                    <line x1="60" y1="160" x2="110" y2="40" stroke="#334155" stroke-width="2"/> <!-- R-P -->
+                    <line x1="60" y1="160" x2="180" y2="160" stroke="#334155" stroke-width="2"/> <!-- R-S -->
+                    <line x1="110" y1="40" x2="250" y2="40" stroke="#334155" stroke-width="2"/> <!-- P-Q -->
+                    <line x1="110" y1="40" x2="180" y2="160" stroke="#334155" stroke-width="2"/> <!-- P-S -->
+                    <line x1="250" y1="40" x2="180" y2="160" stroke="#334155" stroke-width="2"/> <!-- Q-S -->
+                    <line x1="250" y1="40" x2="300" y2="160" stroke="#334155" stroke-width="2"/> <!-- Q-T -->
+                    <line x1="180" y1="160" x2="300" y2="160" stroke="#334155" stroke-width="2"/> <!-- S-T -->
+
+                    <!-- Weights (Rectangles + Text) -->
+                    <rect x="73" y="90" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="83" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">6</text>
+
+                    <rect x="110" y="151" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="120" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">4</text>
+
+                    <rect x="170" y="31" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="180" y="44" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">3</text>
+
+                    <rect x="135" y="90" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="145" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">2</text>
+
+                    <rect x="205" y="90" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="215" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">1</text>
+
+                    <rect x="267" y="90" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="277" y="103" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">5</text>
+
+                    <rect x="230" y="151" width="20" height="18" rx="3" fill="#e2e8f0" stroke="#475569" stroke-width="1"/>
+                    <text x="240" y="164" text-anchor="middle" font-size="12" font-weight="bold" fill="#0f172a">7</text>
+
+                    <!-- Nodes -->
+                    <circle cx="60" cy="160" r="20" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+                    <text x="60" y="166" text-anchor="middle" font-weight="bold" fill="#1e3a8a" font-size="16">R</text>
+
+                    <circle cx="110" cy="40" r="20" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+                    <text x="110" y="46" text-anchor="middle" font-weight="bold" fill="#1e3a8a" font-size="16">P</text>
+
+                    <circle cx="250" cy="40" r="20" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+                    <text x="250" y="46" text-anchor="middle" font-weight="bold" fill="#1e3a8a" font-size="16">Q</text>
+
+                    <circle cx="180" cy="160" r="20" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+                    <text x="180" y="166" text-anchor="middle" font-weight="bold" fill="#1e3a8a" font-size="16">S</text>
+
+                    <circle cx="300" cy="160" r="20" fill="#bfdbfe" stroke="#1d4ed8" stroke-width="2"/>
+                    <text x="300" y="166" text-anchor="middle" font-weight="bold" fill="#1e3a8a" font-size="16">T</text>
+                </svg>
+            </div>
+        `;
+
+        // DATABASE SOAL KELAS 7
+        const SOAL_KELAS_7 = [
             { 
                 id: 1, 
                 text: "1. Diketahui Array : [75, 80, 65, 90, 85]. Berapa nilai yang terdapat pada indeks ke-3?", 
@@ -329,49 +435,114 @@
                 id: 9, 
                 text: "9. [Mulai - Input Panjang - Input Lebar - Hitung Luas - Selesai]. Menurutmu, apakah flowchart tersebut sudah lengkap? Jika belum, bagian apa yang harus ditambahkan agar flowchart tersebut lengkap?", 
                 kunci: "Belum lengkap. Bagian yang harus ditambahkan adalah proses 'Cetak/Tampilkan Luas' sebelum langkah 'Selesai'.", 
-                evaluator: (ans) => (ans.toLowerCase().includes("belum") || ans.toLowerCase().includes("cetak") || ans.toLowerCase().includes("tampil")) ? 100 : (ans.length > 0 ? 20 : 0) 
+                evaluator: (ans) => (ans.toLowerCase().includes("belum") || ans.toLowerCase().includes("cetak") || ans.toLowerCase().includes("tampil")) ? 100 : (ans.length > 0 ? 30 : 0) 
             },
             { 
                 id: 10, 
                 text: "10. Ubahlah (1101)₂ menjadi bilangan desimal", 
                 kunci: "13 (Cara: 1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = 13).", 
                 evaluator: (ans) => ans.match(/\b13\b/) ? 100 : (ans.length > 0 ? 20 : 0) 
+            }
+        ];
+
+        // DATABASE SOAL KELAS 9 (SESUAI DENGAN DAFTAR SOAL USER)
+        const SOAL_KELAS_9 = [
+            {
+                id: 1,
+                text: "1. Istilah yang digunakan untuk menyebut simpul yang tidak memiliki anak dalam struktur data Tree adalah...",
+                kunci: "Leaf Node (atau Leaf / Daun / External Node).",
+                evaluator: (ans) => (ans.toLowerCase().includes("leaf") || ans.toLowerCase().includes("daun")) ? 100 : (ans.length > 0 ? 20 : 0)
             },
-            { 
-                id: 11, 
-                text: "11. Ubahlah kalimat berikut \"SEPATU RODA\" ke dalam bentuk bilangan biner.", 
-                kunci: "Konversi Biner ASCII standar:<br>S = 01010011, E = 01000101, P = 01010000, A = 01000001, T = 01010100, U = 01010101, [Spasi] = 00100000, R = 01010010, O = 01001111, D = 01000100, A = 01000001.", 
-                evaluator: (ans) => (ans.length > 15 && ans.includes("0")) ? 100 : (ans.length > 0 ? 30 : 0) 
+            {
+                id: 2,
+                text: "2. Dalam struktur data tree, istilah tinggi (height) merupakan...",
+                kunci: "Panjang lintasan/jumlah sisi (edge) terbanyak dari Root (simpul akar) menuju ke Leaf (simpul daun) yang paling jauh.",
+                evaluator: (ans) => (ans.toLowerCase().includes("lintasan") || ans.toLowerCase().includes("akar") || ans.toLowerCase().includes("daun") || ans.toLowerCase().includes("root") || ans.toLowerCase().includes("leaf") || ans.toLowerCase().includes("sisi") || ans.toLowerCase().includes("edge")) ? 100 : (ans.length > 0 ? 30 : 0)
             },
-            { 
-                id: 12, 
-                text: "12. Buktikan bilangan biner dari Nomor 11 kembali menjadi kalimat \"SEPATU RODA\"", 
-                kunci: "Menejerjemahkan tiap blok 8-bit biner dari nomor 11 kembali ke karakter ASCII masing-masing hingga membentuk kata 'SEPATU RODA'.", 
-                evaluator: (ans) => ans.toLowerCase().includes("sepatu roda") ? 100 : (ans.length > 0 ? 30 : 0) 
+            {
+                id: 3,
+                text: "3. Danu menuliskan perintah berikut menggunakan CLI untuk mengakses file:<br><code class='bg-slate-200 px-2 py-1 rounded text-indigo-700 font-mono text-sm block my-2'>/Informatika/Kelas9/Gambar/Graph1.png</code>Bagian yang menunjukkan Leaf dari perintah Danu adalah....",
+                kunci: "Graph1.png (karena merupakan elemen paling akhir/ujung dalam hierarki direktori/pohon yang tidak memiliki anak/subfolder lagi).",
+                evaluator: (ans) => ans.toLowerCase().includes("graph1.png") ? 100 : (ans.length > 0 ? 20 : 0)
             },
-            { 
-                id: 13, 
-                text: "13. Terdapat sebuah antrean [9 - 5 - 3], jika masuk angka 2 dan keluar 2 angka dan masuk lagi angka 7. Bagaimana urutan QUEUE-nya? Buatkan operasi QUEUE-nya dengan DEQUEUE dan ENQUEUE", 
-                kunci: "Urutan akhir: [3 - 2 - 7].<br>Operasi:<br>1. Awal: [9, 5, 3]<br>2. ENQUEUE(2) -> [9, 5, 3, 2]<br>3. DEQUEUE() -> keluar 9 -> [5, 3, 2]<br>4. DEQUEUE() -> keluar 5 -> [3, 2]<br>5. ENQUEUE(7) -> [3, 2, 7]", 
-                evaluator: (ans) => (ans.includes("3") && ans.includes("7") && (ans.toLowerCase().includes("enqueue") || ans.toLowerCase().includes("dequeue"))) ? 100 : (ans.length > 0 ? 30 : 0) 
+            {
+                id: 4,
+                text: "4. Pada gambar 1, tuliskan Depth dari Root sampai Leaf terakhir..." + SVG_GAMBAR_1,
+                kunci: "Kedalaman (Depth) adalah 3 (Lintasan dari Root '1' ke Leaf terbanyak '5' atau '11' melewati 3 sisi/edge: 1 -> 7 -> 6 -> 5/11).",
+                evaluator: (ans) => (ans.match(/\b3\b/) || ans.toLowerCase().includes("tiga")) ? 100 : (ans.length > 0 ? 20 : 0)
+            },
+            {
+                id: 5,
+                text: "5. Pada Gambar 1, tentukan Height-nya...." + SVG_GAMBAR_1,
+                kunci: "Tinggi (Height) pohon tersebut adalah 3 (panjang garis dari akar '1' sampai daun paling bawah '5' atau '11').",
+                evaluator: (ans) => (ans.match(/\b3\b/) || ans.toLowerCase().includes("tiga")) ? 100 : (ans.length > 0 ? 20 : 0)
+            },
+            {
+                id: 6,
+                text: "6. Pada gambar 1, Hitunglah degree-nya..." + SVG_GAMBAR_1,
+                kunci: "Derajat (Degree) dari pohon (Tree) adalah 2, karena derajat maksimum dari simpul manapun pada pohon tersebut adalah 2 (misalnya simpul 1, 7, dan 6 masing-masing memiliki 2 cabang/anak).",
+                evaluator: (ans) => (ans.match(/\b2\b/) || ans.toLowerCase().includes("dua")) ? 100 : (ans.length > 0 ? 20 : 0)
+            },
+            {
+                id: 7,
+                text: "7. Istilah yang digunakan untuk menyebut simpul paling atas dalam struktur data tree yang tidak memiliki parent adalah...",
+                kunci: "Root (atau Akar).",
+                evaluator: (ans) => (ans.toLowerCase().includes("root") || ans.toLowerCase().includes("akar")) ? 100 : (ans.length > 0 ? 20 : 0)
+            },
+            {
+                id: 8,
+                text: "8. Bagaimana cara menghitung derajat (degree) pada graf...." + SVG_GAMBAR_2,
+                kunci: "Dengan cara menghitung jumlah sisi (edge) yang terhubung/tertaut langsung pada simpul/vertex tersebut.",
+                evaluator: (ans) => (ans.toLowerCase().includes("sisi") || ans.toLowerCase().includes("edge") || ans.toLowerCase().includes("terhubung") || ans.toLowerCase().includes("garis")) ? 100 : (ans.length > 0 ? 30 : 0)
+            },
+            {
+                id: 9,
+                text: "9. Hitunglah derajat dari masing-masing node/vertex pada gambar 2..." + SVG_GAMBAR_2,
+                kunci: "- Node R = 2<br>- Node P = 3<br>- Node Q = 3<br>- Node S = 4<br>- Node T = 2",
+                evaluator: (ans) => (ans.includes("2") && ans.includes("3") && ans.includes("4")) ? 100 : (ans.length > 0 ? 30 : 0)
+            },
+            {
+                id: 10,
+                text: "10. Jika anda berjalan dari simpul R menuju simpul T melalui lintasan R - P - Q - T, berapakah total bobot perjalanan yang Anda lalui?" + SVG_GAMBAR_2,
+                kunci: "14 (R ke P = 6, P ke Q = 3, Q ke T = 5. Total = 6 + 3 + 5 = 14).",
+                evaluator: (ans) => (ans.match(/\b14\b/) || ans.includes("6+3+5")) ? 100 : (ans.length > 0 ? 20 : 0)
             }
         ];
 
         const STORAGE_KEY = "MTSN1_EXAM_SESSION";
+        let DAFTAR_SOAL = SOAL_KELAS_7;
         let currentSoalIdx = 0;
-        let jawabanSiswa = new Array(DAFTAR_SOAL.length).fill("");
+        let jawabanSiswa = [];
         let warningCount = 0;
         let examTimerInterval = null;
         let remainingSeconds = 90 * 60;
         let isExamActive = false;
         let isExamFinished = false;
-        let userData = { nama: "", kelas: "", absen: "" };
+        let userData = { nama: "", tingkat: "7", kelas: "", absen: "" };
 
         window.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             preventCheatingEvents();
             checkSavedSession();
         });
+
+        // UPDATE PILIHAN KELAS SESUAI TINGKAT (Kelas 7: 71-79, Kelas 9: 97, 98, 99)
+        function updateClassOptions() {
+            const tingkat = document.getElementById('input-tingkat').value;
+            const selectKelas = document.getElementById('input-kelas');
+            selectKelas.innerHTML = '<option value="" disabled selected>Pilih Kelas</option>';
+
+            if (tingkat === "7") {
+                for (let i = 1; i <= 9; i++) {
+                    selectKelas.innerHTML += `<option value="7${i}">Kelas 7${i}</option>`;
+                }
+            } else if (tingkat === "9") {
+                const kelas9List = ["97", "98", "99"];
+                kelas9List.forEach(k => {
+                    selectKelas.innerHTML += `<option value="${k}">Kelas ${k}</option>`;
+                });
+            }
+        }
 
         function checkSavedSession() {
             const saved = localStorage.getItem(STORAGE_KEY);
@@ -398,6 +569,8 @@
             if (!saved) return;
             const parsed = JSON.parse(saved);
             userData = parsed.userData;
+            
+            DAFTAR_SOAL = (userData.tingkat === "9") ? SOAL_KELAS_9 : SOAL_KELAS_7;
             jawabanSiswa = parsed.jawabanSiswa || new Array(DAFTAR_SOAL.length).fill("");
             warningCount = parsed.warningCount || 0;
             currentSoalIdx = parsed.currentSoalIdx || 0;
@@ -459,12 +632,16 @@
         function startExam(e) {
             e.preventDefault();
             const nama = document.getElementById('input-nama').value.trim();
+            const tingkat = document.getElementById('input-tingkat').value;
             const kelas = document.getElementById('input-kelas').value;
             const absen = document.getElementById('input-absen').value.trim();
 
             if (nama.split(/\s+/).length < 2) { alert("Harap isikan Nama Lengkap (minimal 2 kata)!"); return; }
 
-            userData = { nama, kelas, absen };
+            userData = { nama, tingkat, kelas, absen };
+            DAFTAR_SOAL = (tingkat === "9") ? SOAL_KELAS_9 : SOAL_KELAS_7;
+            jawabanSiswa = new Array(DAFTAR_SOAL.length).fill("");
+
             document.getElementById('disp-nama').innerText = nama;
             document.getElementById('disp-kelas').innerText = "Kelas " + kelas;
             document.getElementById('disp-absen').innerText = absen;
@@ -656,14 +833,13 @@
                     <div><span class="text-slate-400 font-medium block mb-0.5">Jawaban Siswa:</span>
                     <div class="text-slate-900 bg-white p-2.5 rounded border border-slate-200 allow-select whitespace-pre-wrap">${ans}</div></div>
                     <div class="bg-indigo-50/70 p-2.5 rounded border border-indigo-100 text-indigo-900">
-                        <span class="font-bold block text-indigo-950 mb-0.5">Kunci Jawaban Acuan:</span>
+                        <span class="font-bold block text-indigo-950 mb-0.5">Kunci Jawaban & Perbaikan/Evaluasi:</span>
                         <span>${s.kunci}</span>
                     </div>`;
                 list.appendChild(div);
             });
         }
 
-        // FUNGSI PENGIRIMAN DATA
         function sendDataToGoogleSheets(nilai, waktu) {
             const statusBox = document.getElementById('status-sheets');
 
