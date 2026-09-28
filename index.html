@@ -52,7 +52,7 @@
             <form id="form-identitas" onsubmit="startExam(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nama Lengkap Siswa</label>
-                    <input type="text" id="input-nama" required placeholder="Contoh: Dinda Dwi Ananda" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
+                    <input type="text" id="input-nama" required placeholder="Contoh: Manusia Kimpul" class="w-full px-4 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -125,9 +125,9 @@
 
                     <div id="soal-container" class="text-sm font-medium text-slate-800 leading-relaxed min-h-[60px] space-y-3"></div>
 
-                    <!-- Gambar Soal (Jika Ada) -->
-                    <div id="image-container" class="hidden my-3 p-2 bg-slate-50 rounded-lg border border-slate-200 text-center">
-                        <img id="soal-image" src="" alt="Gambar Soal" class="max-h-72 mx-auto rounded shadow-sm object-contain">
+                    <!-- Gambar Soal (Menggunakan Container Vector/SVG khusus HP) -->
+                    <div id="image-container" class="hidden my-3 p-3 bg-slate-50 rounded-lg border border-slate-200 text-center flex justify-center items-center overflow-x-auto">
+                        <div id="soal-svg-target" class="w-full max-w-sm mx-auto flex justify-center"></div>
                     </div>
 
                     <div>
@@ -203,11 +203,10 @@
         const GOOGLE_SHEETS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxYOUR_SCRIPT_ID_HERE/exec"; 
         const STORAGE_KEY = "MTsN1_INFORMATIKA_EXAM_SESSION";
 
-        // GAMBAR 1 (TREE - Node 1, 7, 9, 2, 6, 9, 5, 11, 5) Format Base64 SVG
-        const URL_GAMBAR_1 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzNTAgMzUwIiB3aWR0aD0iMzUwIiBoZWlnaHQ9IjM1MCI+PHN0eWxlPmNpcmNsZXtmaWxsOiNmZmY7c3Ryb2tlOiMzMzM7c3Ryb2tlLXdpZHRoOjI7fXRleHR7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjtmb250LXNpemU6MTZweDpmb250LXdlaWdodDpib2xkO3RleHQtYW5jaG9yOm1pZGRsZTtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsO31saW5le3N0cm9rZTojMzMzO3N0cm9rZS13aWR0aDoyO308L3N0eWxlPmxpbmUgeDE9IjE3NSIgeTE9IjQwIiB4Mj0iMTAwIiB5Mj0iMTEwIi8+bGluZSB4MT0iMTc1IiB5MT0iNDAiIHgyPSIyNTAiIHkyPSIxMTAiLz4sbGluZSB4MT0iMTAwIiB5MT0iMTEwIiB4Mj0iNTAiIHkyPSIxODAiLz4sbGluZSB4MT0iMTAwIiB5MT0iMTEwIiB4Mj0iMTUwIiB5Mj0iMTgwIi8+bGluZSB4MT0iMjUwIiB5MT0iMTEwIiB4Mj0iMjgwIiB5Mj0iMTgwIi8+bGluZSB4MT0iMTUwIiB5MT0iMTgwIiB4Mj0iMTEwIiB5Mj0iMjcwIi8+bGluZSB4MT0iMTUwIiB5MT0iMTgwIiB4Mj0iMTkwIiB5Mj0iMjcwIi8+bGluZSB4MT0iMjgwIiB5MT0iMTgwIiB4Mj0iMjUwIiB5Mj0iMjcwIi8+Y2lyY2xlIGN4PSIxNzUiIGN5PSI0MCIgcj0iMjAiLz48dGV4dCB4PSIxNzUiIHk9IjQwIj4xPC90ZXh0PjajaXJjbGUgY3g9IjEwMCIgY3k9IjExMCIgcj0iMjAiLz48dGV4dCB4PSIxMDAiIHk9IjExMCI+NzwvdGV4dD48Y2lyY2xlIGN4PSIyNTAiIGN5PSIxMTAiIHI9IjIwIi8+PHRleHQgeD0iMjUwIiB5PSIxMTAiPjk8L3RleHQ+PGNpcmNsZSBjeD0iNTAiIGN5PSIxODAiIHI9IjIwIi8+PHRleHQgeD0iNTAiIHk9IjE4MCI+MjwvdGV4dD48Y2lyY2xlIGN4PSIxNTAiIGN5PSIxODAiIHI9IjIwIi8+PHRleHQgeD0iMTUwIiB5PSIxODAiPjY8L3RleHQ+PGNpcmNsZSBjeD0iMjgwIiBjeT0iMTgwIiByPSIyMCIvPjx0ZXh0IHg9IjI4MCIgeT0iMTgwIj45PC90ZXh0PjxjaXJjbGUgY3g9IjExMCIgY3k9IjI3MCIgcj0iMjAiLz48dGV4dCB4PSIxMTAiIHk9IjI3MCI+NTwvdGV4dD48Y2lyY2xlIGN4PSIxOTAiIGN5PSIyNzAiIHI9IjIwIi8+PHRleHQgeD0iMTkwIiB5PSIyNzAiPjExPC90ZXh0PjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI3MCIgcj0iMjAiLz48dGV4dCB4PSIyNTAiIHk9IjI3MCI+NTwvdGV4dD48L3N2Zz4=";
+        // SVG MURNI 100% KOMPATIBEL HP
+        const SVG_GAMBAR_1 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 320" class="w-full max-w-[280px] h-auto"><style>circle{fill:#fff;stroke:#333;stroke-width:2;}text{font-family:sans-serif;font-size:15px;font-weight:bold;text-anchor:middle;dominant-baseline:central;}line{stroke:#333;stroke-width:2;}</style><line x1="175" y1="30" x2="100" y2="90"/><line x1="175" y1="30" x2="250" y2="90"/><line x1="100" y1="90" x2="50" y2="160"/><line x1="100" y1="90" x2="150" y2="160"/><line x1="250" y1="90" x2="280" y2="160"/><line x1="150" y1="160" x2="110" y2="250"/><line x1="150" y1="160" x2="190" y2="250"/><line x1="280" y1="160" x2="250" y2="250"/><circle cx="175" cy="30" r="18"/><text x="175" y="30">1</text><circle cx="100" cy="90" r="18"/><text x="100" y="90">7</text><circle cx="250" cy="90" r="18"/><text x="250" y="90">9</text><circle cx="50" cy="160" r="18"/><text x="50" y="160">2</text><circle cx="150" cy="160" r="18"/><text x="150" y="160">6</text><circle cx="280" cy="160" r="18"/><text x="280" y="160">9</text><circle cx="110" cy="250" r="18"/><text x="110" y="250">5</text><circle cx="190" cy="250" r="18"/><text x="190" y="250">11</text><circle cx="250" cy="250" r="18"/><text x="250" y="250">5</text></svg>`;
         
-        // GAMBAR 2 (GRAF - Node P, Q, R, S, T) Format Base64 SVG
-        const URL_GAMBAR_2 = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDAgMjUwIiB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI1MCI+PHN0eWxlPmNpcmNsZXtmaWxsOiNjY2U1ZmY7c3Ryb2tlOiMwMDQwODU7c3Ryb2tlLXdpZHRoOjI7fXRleHR7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjtmb250LXNpemU6MTZweDpmb250LXdlaWdodDpib2xkO3RleHQtYW5jaG9yOm1pZGRsZTtkb21pbmFudC1iYXNlbGluZTpjZW50cmFsO31saW5le3N0cm9rZTojMzMzO3N0cm9rZS13aWR0aDoyO31yZWN0e2ZpbGw6I2Y4ZjlmYTtzdHJva2U6IzZjNzVkdTtzdHJva2Utd2lkdGg6MTtyeDozO308L3N0eWxlPmxpbmUgeDE9IjEwMCIgeTE9IjUwIiB4Mj0iMjAwIiB5Mj0iNTAiLz4sbGluZSB4MT0iMTAwIiB5MT0iNTAiIHgyPSI1MCIgeTI9IjE4MCIvPmxpbmUgeDE9IjEwMCIgeTE9IjUwIiB4Mj0iMTUwIiB5Mj0iMTgwIi8+bGluZSB4MT0iMjAwIiB5MT0iNTAiIHgyPSIxNTAiIHkyPSIxODAiLz4sbGluZSB4MT0iMjAwIiB5MT0iNTAiIHgyPSIyODAiIHkyPSIxODAiLz4sbGluZSB4MT0iNTAiIHkyPSIxODAiIHgyPSIxNTAiIHkyPSIxODAiLz4sbGluZSB4MT0iMTUwIiB5MT0iMTgwIiB4Mj0iMjgwIiB5Mj0iMTgwIi8+cmVjdCB4PSIxNDAiIHk9IjQwIiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48dGV4dCB4PSIxNTAiIHk9IjUwIiBmb250LXNpemU9IjEyIj4zPC90ZXh0PjZyZWN0IHg9IjYwIiB5PSIxMDUiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIvPjx0ZXh0IHg9IjcwIiB5PSIxMTUiIGZvbnQtc2l6ZT0iMTIiPjY8L3RleHQ+PHJlY3QgeD0iMTE1IiB5PSIxMDUiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIvPjx0ZXh0IHg9IjEyNSIgeT0iMTE1IiBmb250LXNpemU9IjEyIj4yPC90ZXh0PjZyZWN0IHg9IjE2NSIgeT0iMTA1IiB3aWR0aD0iMjAiIGhlaWdodD0iMjAiLz48dGV4dCB4PSIxNzUiIHk9IjExNSIgZm9udC1zaXplPSIxMiI+MTwvdGV4dD48cmVjdCB4PSIyMzAiIHk9IjEwNSIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIi8+PHRleHQgeD0iMjQwIiB5PSIxMTUiIGZvbnQtc2l6ZT0iMTIiPjU8L3RleHQ+PHJlY3QgeD0iOTAiIHk9IjE3MCIgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIi8+PHRleHQgeD0iMTAwIiB5PSIxODAiIGZvbnQtc2l6ZT0iMTIiPjQ8L3RleHQ+PHJlY3QgeD0iMjA1IiB5PSIxNzAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIvPjx0ZXh0IHg9IjIxNSIgeT0iMTgwIiBmb250LXNpemU9IjEyIj43PC90ZXh0PjxjaXJjbGUgY3g9IjEwMCIgY3k9IjUwIiByPSIyMCIvPjx0ZXh0IHg9IjEwMCIgeT0iNTAiPlA8L3RleHQ+PGNpcmNsZSBjeD0iMjAwIiBjeT0iNTAiIHI9IjIwIi8+PHRleHQgeD0iMjAwIiB5PSI1MCI+UTwvdGV4dD48Y2lyY2xlIGN4PSI1MCIgY3k9IjE4MCIgcj0iMjAiLz48dGV4dCB4PSI1MCIgeT0iMTgwIj5SPC90ZXh0PjxjaXJjbGUgY3g9IjE1MCIgY3k9IjE4MCIgcj0iMjAiLz48dGV4dCB4PSIxNTAiIHk9IjE4MCI+UzwvdGV4dD48Y2lyY2xlIGN4PSIyODAiIGN5PSIxODAiIHI9IjIwIi8+PHRleHQgeD0iMjgwIiB5PSIxODAiPlQ8L3RleHQ+PC9zdmc+";
+        const SVG_GAMBAR_2 = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 220" class="w-full max-w-[320px] h-auto"><style>circle{fill:#cce5ff;stroke:#004085;stroke-width:2;}text{font-family:sans-serif;font-size:14px;font-weight:bold;text-anchor:middle;dominant-baseline:central;}line{stroke:#333;stroke-width:2;}rect{fill:#ffffff;stroke:#6c757d;stroke-width:1;rx:3;}</style><line x1="90" y1="40" x2="180" y2="40"/><line x1="90" y1="40" x2="40" y2="160"/><line x1="90" y1="40" x2="135" y2="160"/><line x1="180" y1="40" x2="135" y2="160"/><line x1="180" y1="40" x2="260" y2="160"/><line x1="40" y1="160" x2="135" y2="160"/><line x1="135" y1="160" x2="260" y2="160"/><rect x="126" y="31" width="18" height="18"/><text x="135" y="40" font-size="11">3</text><rect x="56" y="91" width="18" height="18"/><text x="65" y="100" font-size="11">6</text><rect x="103" y="91" width="18" height="18"/><text x="112" y="100" font-size="11">2</text><rect x="149" y="91" width="18" height="18"/><text x="158" y="100" font-size="11">1</text><rect x="211" y="91" width="18" height="18"/><text x="220" y="100" font-size="11">5</text><rect x="78" y="151" width="18" height="18"/><text x="87" y="160" font-size="11">4</text><rect x="188" y="151" width="18" height="18"/><text x="197" y="160" font-size="11">7</text><circle cx="90" cy="40" r="18"/><text x="90" y="40">P</text><circle cx="180" cy="40" r="18"/><text x="180" y="40">Q</text><circle cx="40" cy="160" r="18"/><text x="40" y="160">R</text><circle cx="135" cy="160" r="18"/><text x="135" y="160">S</text><circle cx="260" cy="160" r="18"/><text x="260" y="160">T</text></svg>`;
 
         // ==========================================
         // DATABASE SOAL KELAS 7 (13 SOAL PERSIS)
@@ -216,16 +215,14 @@
             {
                 id: 1,
                 text: "Diketahui Array : [75, 80, 65, 90, 85] Berapa nilai yang terdapat pada indeks ke-3?",
-                image: null,
+                svg: null,
                 kunci: "<strong>90</strong> (Karena indeks array dimulai dari 0: indeks 0 = 75, indeks 1 = 80, indeks 2 = 65, indeks 3 = 90, indeks 4 = 85).",
-                evaluator: function(ans) {
-                    return ans.includes("90") ? 100 : 0;
-                }
+                evaluator: function(ans) { return ans.includes("90") ? 100 : 0; }
             },
             {
                 id: 2,
-                text: "Diketahui Array 2 dimensi dari 2 siswa :<br><br><table class='border-collapse border border-slate-300 text-xs text-center'><tr class='bg-slate-100'><th class='border border-slate-300 px-3 py-1'>Siswa</th><th class='border border-slate-300 px-3 py-1'>Nilai 1</th><th class='border border-slate-300 px-3 py-1'>Nilai 2</th></tr><tr><td class='border border-slate-300 px-3 py-1'>Siswa 1</td><td class='border border-slate-300 px-3 py-1'>80</td><td class='border border-slate-300 px-3 py-1'>30</td></tr><tr><td class='border border-slate-300 px-3 py-1'>Siswa 2</td><td class='border border-slate-300 px-3 py-1'>70</td><td class='border border-slate-300 px-3 py-1'>50</td></tr></table><br>Berapakah indeks dari nilai 50?",
-                image: null,
+                text: "Diketahui Array 2 dimensi dari 2 siswa :<br><br><table class='border-collapse border border-slate-300 text-xs text-center mx-auto'><tr class='bg-slate-100'><th class='border border-slate-300 px-3 py-1'>Siswa</th><th class='border border-slate-300 px-3 py-1'>Nilai 1</th><th class='border border-slate-300 px-3 py-1'>Nilai 2</th></tr><tr><td class='border border-slate-300 px-3 py-1'>Siswa 1</td><td class='border border-slate-300 px-3 py-1'>80</td><td class='border border-slate-300 px-3 py-1'>30</td></tr><tr><td class='border border-slate-300 px-3 py-1'>Siswa 2</td><td class='border border-slate-300 px-3 py-1'>70</td><td class='border border-slate-300 px-3 py-1'>50</td></tr></table><br>Berapakah indeks dari nilai 50?",
+                svg: null,
                 kunci: "<strong>Indeks [1][1]</strong> (Siswa 2 berada pada baris indeks 1, dan nilai 50 berada pada kolom indeks 1).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -236,7 +233,7 @@
             {
                 id: 3,
                 text: "Buatlah algoritma \"Hitung Volume Prisma Segitiga\"",
-                image: null,
+                svg: null,
                 kunci: "<strong>Algoritma:</strong><br>1. Masukkan alas segitiga (a)<br>2. Masukkan tinggi segitiga (t)<br>3. Masukkan tinggi prisma (T)<br>4. Hitung Luas Alas = 0.5 * a * t<br>5. Hitung Volume = Luas Alas * T (atau V = 0.5 * a * t * T)<br>6. Tampilkan Volume.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -250,16 +247,14 @@
             {
                 id: 4,
                 text: "Ubahlah bilangan biner berikut ke dalam bentuk bilangan desimal (011)2",
-                image: null,
+                svg: null,
                 kunci: "<strong>3</strong><br>Perhitungan: (0 × 2²) + (1 × 2¹) + (1 × 2⁰) = 0 + 2 + 1 = 3.",
-                evaluator: function(ans) {
-                    return ans.includes("3") ? 100 : 0;
-                }
+                evaluator: function(ans) { return ans.includes("3") ? 100 : 0; }
             },
             {
                 id: 5,
                 text: "Tentukan pola dari data berikut 63, ... 42, 35, .... berapakah pola pembentuknya? dan berapa angka lanjutannya?",
-                image: null,
+                svg: null,
                 kunci: "<strong>Pola pembentuk: Berkurang 7 (-7)</strong><br>Angka kosong pertama: 56<br>Angka lanjutan terakhir: 28<br>Deret lengkap: 63, 56, 42, 35, 28.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -272,7 +267,7 @@
             {
                 id: 6,
                 text: "Seorang siswa mengamati bahwa semakin TINGGI nilai ujian, semakin sedikit siswa yang remedial. Ia kemudian memperkirakan hasil ujian berikutnya berdasarkan hal tersebut. Konsep berpikir komputasional apa yang digunakan siswa tersebut? Jelaskan!",
-                image: null,
+                svg: null,
                 kunci: "<strong>Pengenalan Pola (Pattern Recognition)</strong>.<br>Penjelasan: Siswa mengamati pola hubungan numerik dari data sebelumnya untuk memprediksi hasil di masa mendatang.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -285,7 +280,7 @@
             {
                 id: 7,
                 text: "Sebuah stack awalnya kosong. dilakukan operasi: PUSH A - PUSH B - PUSH C - POP - PUSH D. Data apa yang berada di posisi paling atas stack setelah seluruh operasi tersebut? Silakan diuraikan",
-                image: null,
+                svg: null,
                 kunci: "<strong>Data paling atas: D</strong><br>Uraian langkah:<br>1. PUSH A -> Stack: [A]<br>2. PUSH B -> Stack: [A, B]<br>3. PUSH C -> Stack: [A, B, C]<br>4. POP -> C keluar, Stack: [A, B]<br>5. PUSH D -> Stack: [A, B, D]. Elemen paling atas = D.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -298,16 +293,14 @@
             {
                 id: 8,
                 text: "Dalam sistem bilangan Heksadesimal, huruf A mewakili nilai desimal berapa?",
-                image: null,
+                svg: null,
                 kunci: "<strong>10</strong> (Sistem heksadesimal: 0-9, A=10, B=11, C=12, D=13, E=14, F=15).",
-                evaluator: function(ans) {
-                    return ans.includes("10") ? 100 : 0;
-                }
+                evaluator: function(ans) { return ans.includes("10") ? 100 : 0; }
             },
             {
                 id: 9,
                 text: "[Mulai - Input Panjang - Input Lebar - Hitung Luas - Selesai]. Menurutmu, apakah flowchart tersebut sudah lengkap? jika belum, bagian apa yang harus ditambahkan agar flowchart tersebut lengkap?",
-                image: null,
+                svg: null,
                 kunci: "<strong>Belum lengkap.</strong><br>Bagian yang harus ditambahkan adalah <strong>Output / Tampilkan Luas</strong> setelah proses Hitung Luas dan sebelum Selesai.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -320,28 +313,16 @@
             {
                 id: 10,
                 text: "Ubahlah (1101)2 menjadi bilangan desimal",
-                image: null,
+                svg: null,
                 kunci: "<strong>13</strong><br>Perhitungan: (1 × 2³) + (1 × 2²) + (0 × 2¹) + (1 × 2⁰) = 8 + 4 + 0 + 1 = 13.",
-                evaluator: function(ans) {
-                    return ans.includes("13") ? 100 : 0;
-                }
+                evaluator: function(ans) { return ans.includes("13") ? 100 : 0; }
             },
             {
                 id: 11,
                 text: "Ubahlah kalimat berikut \"SEPATU RODA\" ke dalam bentuk bilangan biner.",
-                image: null,
+                svg: null,
                 kunci: "<strong>Berdasarkan Urutan Alfabet (A=1 s/d Z=26, Spasi=0):</strong><br>" +
-                       "S = 19 (10011)<br>" +
-                       "E = 5 (00101)<br>" +
-                       "P = 16 (10000)<br>" +
-                       "A = 1 (00001)<br>" +
-                       "T = 20 (10100)<br>" +
-                       "U = 21 (10101)<br>" +
-                       "[Spasi] = 0 (00000)<br>" +
-                       "R = 18 (10010)<br>" +
-                       "O = 15 (01111)<br>" +
-                       "D = 4 (00100)<br>" +
-                       "A = 1 (00001)<br><br>" +
+                       "S = 19 (10011)<br>E = 5 (00101)<br>P = 16 (10000)<br>A = 1 (00001)<br>T = 20 (10100)<br>U = 21 (10101)<br>[Spasi] = 0 (00000)<br>R = 18 (10010)<br>O = 15 (01111)<br>D = 4 (00100)<br>A = 1 (00001)<br><br>" +
                        "<strong>Hasil Biner Rangkaian:</strong><br>10011 00101 10000 00001 10100 10101 00000 10010 01111 00100 00001",
                 evaluator: function(ans) {
                     let score = 0;
@@ -354,19 +335,9 @@
             {
                 id: 12,
                 text: "Buktikan bilangan biner dari Nomor 11 kembali menjadi kalimat \"SEPATU RODA\"",
-                image: null,
+                svg: null,
                 kunci: "<strong>Pembuktian dengan Mengonversi Biner ke Desimal (Urutan Abjad):</strong><br>" +
-                       "• 10011 = 19 -> S<br>" +
-                       "• 00101 = 5 -> E<br>" +
-                       "• 10000 = 16 -> P<br>" +
-                       "• 00001 = 1 -> A<br>" +
-                       "• 10100 = 20 -> T<br>" +
-                       "• 10101 = 21 -> U<br>" +
-                       "• 00000 = 0 -> [Spasi]<br>" +
-                       "• 10010 = 18 -> R<br>" +
-                       "• 01111 = 15 -> O<br>" +
-                       "• 00100 = 4 -> D<br>" +
-                       "• 00001 = 1 -> A<br><br>" +
+                       "• 10011 = 19 -> S<br>• 00101 = 5 -> E<br>• 10000 = 16 -> P<br>• 00001 = 1 -> A<br>• 10100 = 20 -> T<br>• 10101 = 21 -> U<br>• 00000 = 0 -> [Spasi]<br>• 10010 = 18 -> R<br>• 01111 = 15 -> O<br>• 00100 = 4 -> D<br>• 00001 = 1 -> A<br><br>" +
                        "Sehingga jika dirangkai kembali akan membentuk kalimat <strong>\"SEPATU RODA\"</strong>.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -379,7 +350,7 @@
             {
                 id: 13,
                 text: "Terdapat sebuah antrean [9 - 5 - 3], jika masuk angka 2 dan keluar 2 angka dan masuk lagi angka 7. Bagaimana urutan QUEUE-nya? buatkan operasi QUEUE-nya dengan DEQUEUE dan ENQUEUE",
-                image: null,
+                svg: null,
                 kunci: "<strong>Urutan Akhir Queue: [3, 2, 7]</strong><br>Operasi Step-by-Step:<br>1. Awal: [9, 5, 3]<br>2. Masuk 2 (ENQUEUE 2): [9, 5, 3, 2]<br>3. Keluar 2 angka (DEQUEUE 2x): 9 dan 5 keluar -> sisa [3, 2]<br>4. Masuk 7 (ENQUEUE 7): [3, 2, 7].",
                 evaluator: function(ans) {
                     let score = 0;
@@ -398,7 +369,7 @@
             {
                 id: 1,
                 text: "Istilah yang digunakan untuk menyebut simpul yang tidak memiliki anak dalam struktur data Tree adalah...",
-                image: null,
+                svg: null,
                 kunci: "<strong>Leaf</strong> (atau Daun / Simpul Daun).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -409,7 +380,7 @@
             {
                 id: 2,
                 text: "Dalam struktur data tree, istilah (height) merupakan...",
-                image: null,
+                svg: null,
                 kunci: "<strong>Height (tinggi)</strong> adalah panjang lintasan terpanjang dari simpul akar (root) menuju simpul daun (leaf) paling jauh, atau jumlah level/tingkat maksimum dalam sebuah pohon.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -422,7 +393,7 @@
             {
                 id: 3,
                 text: "Danu menuliskan perintah berikut menggunakan CLI untuk mengakses file.<br><code class='bg-slate-100 px-2 py-1 rounded text-indigo-600 font-mono text-xs'>/Informatika/Kelas9/Gambar/Graph1.png</code><br><br>Bagian yang menunjukkan Leaf dari perintah Danu adalah....",
-                image: null,
+                svg: null,
                 kunci: "<strong>Graph1.png</strong> (karena merupakan file paling ujung/node paling akhir pada hierarki direktori).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -433,7 +404,7 @@
             {
                 id: 4,
                 text: "Pada gambar 1, tuliskan Depth dari Root sampai Leaf terakhir...",
-                image: URL_GAMBAR_1,
+                svg: SVG_GAMBAR_1,
                 kunci: "<strong>Depth = 3</strong> (Level 0: [1], Level 1: [7, 9], Level 2: [2, 6, 9], Level 3: [5, 11, 5]).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -444,7 +415,7 @@
             {
                 id: 5,
                 text: "Pada Gambar 1, tentukan Height-nya....",
-                image: URL_GAMBAR_1,
+                svg: SVG_GAMBAR_1,
                 kunci: "<strong>Height = 3</strong> (Panjang sisi terpanjang dari Root (1) ke Leaf (5/11) adalah 3 langkah/sisi).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -455,7 +426,7 @@
             {
                 id: 6,
                 text: "Pada gambar 1, Hitunglah degree-nya...",
-                image: URL_GAMBAR_1,
+                svg: SVG_GAMBAR_1,
                 kunci: "<strong>Degree = 2</strong> (Derajat pohon ini adalah 2 karena jumlah anak maksimal untuk sebuah node/simpul adalah 2).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -466,7 +437,7 @@
             {
                 id: 7,
                 text: "Istilah yang digunakan untuk menyebut simpul paling atas dalam struktur data tree yang tidak memiliki parent adalah...",
-                image: null,
+                svg: null,
                 kunci: "<strong>Root</strong> (atau Akar / Simpul Akar).",
                 evaluator: function(ans) {
                     const a = ans.toLowerCase();
@@ -477,7 +448,7 @@
             {
                 id: 8,
                 text: "Bagaimana cara menghitung derajat (degree) pada graf ....",
-                image: URL_GAMBAR_2,
+                svg: SVG_GAMBAR_2,
                 kunci: "Cara menghitung derajat (degree) pada graf adalah dengan **menghitung jumlah sisi (edge) yang terhubung langsung** ke simpul/node tersebut.",
                 evaluator: function(ans) {
                     let score = 0;
@@ -490,7 +461,7 @@
             {
                 id: 9,
                 text: "Hitunglah derajat dari masing-masing node/vertex pada gambar 2...",
-                image: URL_GAMBAR_2,
+                svg: SVG_GAMBAR_2,
                 kunci: "<strong>Perhitungan Derajat Masing-masing Node:</strong><br>• Node P = 3 (terhubung ke R, Q, S)<br>• Node Q = 3 (terhubung ke P, S, T)<br>• Node R = 2 (terhubung ke P, S)<br>• Node S = 4 (terhubung ke R, P, Q, T)<br>• Node T = 2 (terhubung ke Q, S)",
                 evaluator: function(ans) {
                     let score = 0;
@@ -507,11 +478,9 @@
             {
                 id: 10,
                 text: "Jika anda berjalan dari simpul R menuju simpul T melalui lintasan R - P - Q - T, berapakah total bobot perjalanan yang Anda lalui?",
-                image: URL_GAMBAR_2,
+                svg: SVG_GAMBAR_2,
                 kunci: "<strong>Total Bobot = 14</strong><br>Perhitungan:<br>Bobot(R - P) = 6<br>Bobot(P - Q) = 3<br>Bobot(Q - T) = 5<br>Total = 6 + 3 + 5 = <strong>14</strong>.",
-                evaluator: function(ans) {
-                    return ans.includes("14") ? 100 : 0;
-                }
+                evaluator: function(ans) { return ans.includes("14") ? 100 : 0; }
             }
         ];
 
@@ -645,11 +614,13 @@
             document.getElementById('soal-container').innerHTML = `<p>${soal.text}</p>`;
 
             const imgBox = document.getElementById('image-container');
-            const imgEl = document.getElementById('soal-image');
-            if (soal.image) {
-                imgEl.src = soal.image;
+            const svgTarget = document.getElementById('soal-svg-target');
+
+            if (soal.svg) {
+                svgTarget.innerHTML = soal.svg;
                 imgBox.classList.remove('hidden');
             } else {
+                svgTarget.innerHTML = "";
                 imgBox.classList.add('hidden');
             }
 
@@ -856,7 +827,7 @@
                 const box = document.createElement('div');
                 box.className = "p-4 bg-slate-50 rounded-lg border border-slate-200 text-xs space-y-2";
 
-                let imgHtml = item.soal.image ? `<img src="${item.soal.image}" class="max-h-36 my-2 rounded border border-slate-200 mx-auto">` : '';
+                let svgHtml = item.soal.svg ? `<div class="p-2 my-2 bg-white rounded border border-slate-200 flex justify-center">${item.soal.svg}</div>` : '';
 
                 box.innerHTML = `
                     <div class="flex justify-between font-bold text-slate-700">
@@ -864,7 +835,7 @@
                         <span class="${item.nilai >= 70 ? 'text-emerald-600' : 'text-red-600'}">Nilai: ${item.nilai} / 100</span>
                     </div>
                     <div class="text-slate-600 font-medium">${item.soal.text}</div>
-                    ${imgHtml}
+                    ${svgHtml}
                     <div class="p-2 bg-white rounded border border-slate-200">
                         <strong class="block text-slate-500 mb-1">Jawaban Siswa:</strong>
                         <p class="text-slate-800 whitespace-pre-wrap">${item.jawaban || '<em class="text-red-400">Tidak dijawab</em>'}</p>
