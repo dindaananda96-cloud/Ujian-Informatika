@@ -273,23 +273,88 @@
     </footer>
 
     <script>
-        // URL Apps Script milik Anda sudah terpasang di bawah ini
+        // URL Apps Script milik Anda
         const GOOGLE_SHEETS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGypleWuX9ZdchmA-JRBLvGwOWvr_1KSnOYogGsD81mKitEQE5DtLohGUYH6gU_Obr/exec';
 
         const DAFTAR_SOAL = [
-            { id: 1, text: "1. Diketahui Array : [75, 80, 65, 90, 85]. Berapa nilai yang terdapat pada indeks ke-3?", kunci: "90 (Indeks dimulai dari 0).", evaluator: (ans) => ans.match(/\b90\b/) ? 100 : (ans.length > 0 ? 20 : 0) },
-            { id: 2, text: "2. Diketahui Array 2 dimensi:<br><table class='border-collapse border border-slate-400 mt-2 text-sm text-center'><tr class='bg-slate-100'><th class='border border-slate-400 px-3 py-1'>Siswa 1</th><td class='border border-slate-400 px-3 py-1'>80</td><td class='border border-slate-400 px-3 py-1'>30</td></tr><tr><th class='border border-slate-400 px-3 py-1'>Siswa 2</th><td class='border border-slate-400 px-3 py-1'>70</td><td class='border border-slate-400 px-3 py-1'>50</td></tr></table><br>Berapakah indeks dari nilai 50?", kunci: "Baris 1 Kolom 1 atau [1][1].", evaluator: (ans) => (ans.includes("[1][1]") || ans.includes("1,1") || ans.toLowerCase().includes("baris")) ? 100 : (ans.length > 0 ? 20 : 0) },
-            { id: 3, text: "3. Buatlah algoritma 'Hitung Volume Prisma Segitiga' secara runtut!", kunci: "Mulai -> Input a, t, tp -> Luas = 1/2*a*t -> Vol = Luas*tp -> Cetak Vol -> Selesai.", evaluator: (ans) => ans.length > 10 ? 100 : 20 },
-            { id: 4, text: "4. Ubahlah bilangan biner berikut ke desimal: (011)₂", kunci: "3 desimal.", evaluator: (ans) => ans.includes("3") ? 100 : (ans.length > 0 ? 20 : 0) },
-            { id: 5, text: "5. Pola data: 63, ..., 42, 35, .... Berapa pola pembentuk dan angka lanjutannya?", kunci: "Pola -7. Angka: 56 dan 28.", evaluator: (ans) => (ans.includes("7") && ans.includes("56")) ? 100 : 30 },
-            { id: 6, text: "6. Konsep berpikir komputasional apa yang mengamati tren/pola data?", kunci: "Pengenalan Pola (Pattern Recognition).", evaluator: (ans) => ans.toLowerCase().includes("pola") ? 100 : 20 },
-            { id: 7, text: "7. Stack: PUSH A - PUSH B - PUSH C - POP - PUSH D. Data teratas?", kunci: "D.", evaluator: (ans) => ans.toLowerCase().includes("d") ? 100 : 20 },
-            { id: 8, text: "8. Dalam Heksadesimal, huruf A mewakili nilai berapa?", kunci: "10.", evaluator: (ans) => ans.includes("10") ? 100 : (ans.length > 0 ? 20 : 0) },
-            { id: 9, text: "9. Flowchart Luas tanpa 'Cetak Luas', apakah lengkap?", kunci: "Belum, harus ada Cetak Luas.", evaluator: (ans) => ans.toLowerCase().includes("belum") ? 100 : 20 },
-            { id: 10, text: "10. Ubahlah (1101)₂ ke desimal!", kunci: "13.", evaluator: (ans) => ans.includes("13") ? 100 : (ans.length > 0 ? 20 : 0) },
-            { id: 11, text: "11. Ubah 'SEPATU RODA' ke biner!", kunci: "Konversi tiap huruf ke biner.", evaluator: (ans) => ans.length > 15 ? 100 : 30 },
-            { id: 12, text: "12. Buktikan biner No. 11 kembali ke 'SEPATU RODA'!", kunci: "Mengkonversi biner ke huruf.", evaluator: (ans) => ans.toLowerCase().includes("sepatu roda") ? 100 : 20 },
-            { id: 13, text: "13. Queue [9-5-3], masuk 2, keluar 2 angka, masuk 7. Urutan akhir?", kunci: "3 - 2 - 7.", evaluator: (ans) => (ans.includes("3") && ans.includes("7")) ? 100 : 20 }
+            { 
+                id: 1, 
+                text: "1. Diketahui Array : [75, 80, 65, 90, 85]. Berapa nilai yang terdapat pada indeks ke-3?", 
+                kunci: "90 (karena indeks dimulai dari 0: indeks 0=75, 1=80, 2=65, 3=90).", 
+                evaluator: (ans) => ans.match(/\b90\b/) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 2, 
+                text: "2. Diketahui Array 2 dimensi dari 2 siswa :<br><table class='border-collapse border border-slate-400 mt-2 text-sm text-center'><tr class='bg-slate-100'><th class='border border-slate-400 px-3 py-1'>Siswa 1</th><td class='border border-slate-400 px-3 py-1'>80</td><td class='border border-slate-400 px-3 py-1'>30</td></tr><tr><th class='border border-slate-400 px-3 py-1'>Siswa 2</th><td class='border border-slate-400 px-3 py-1'>70</td><td class='border border-slate-400 px-3 py-1'>50</td></tr></table><br>Berapakah indeks dari nilai 50?", 
+                kunci: "Indeks [1][1] (Baris ke-2, Kolom ke-2 jika dimulai dari indeks 0).", 
+                evaluator: (ans) => (ans.includes("[1][1]") || ans.includes("1,1") || ans.toLowerCase().includes("baris") || ans.toLowerCase().includes("siswa 2")) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 3, 
+                text: "3. Buatlah algoritma \"Hitung Volume Prisma Segitiga\"", 
+                kunci: "1. Mulai<br>2. Input alas (a), tinggi segitiga (t), dan tinggi prisma (tp)<br>3. Hitung Luas Alas = 0.5 * a * t<br>4. Hitung Volume = Luas Alas * tp<br>5. Cetak Volume<br>6. Selesai", 
+                evaluator: (ans) => (ans.toLowerCase().includes("volume") || ans.toLowerCase().includes("luas") || ans.length > 15) ? 100 : (ans.length > 0 ? 30 : 0) 
+            },
+            { 
+                id: 4, 
+                text: "4. Ubahlah bilangan biner berikut ke dalam bentuk bilangan desimal (011)₂", 
+                kunci: "3 (Cara: 0×2² + 1×2¹ + 1×2⁰ = 0 + 2 + 1 = 3).", 
+                evaluator: (ans) => ans.match(/\b3\b/) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 5, 
+                text: "5. Tentukan pola dari data berikut 63, ... 42, 35, .... berapakah pola pembentuknya? dan berapa angka lanjutannya?", 
+                kunci: "Pola pembentuk: Berkurang 7 (-7).<br>Angka sisipannya: 56<br>Angka lanjutannya: 28 (Urutan: 63, 56, 42, 35, 28).", 
+                evaluator: (ans) => (ans.includes("7") && (ans.includes("56") || ans.includes("28"))) ? 100 : (ans.length > 0 ? 30 : 0) 
+            },
+            { 
+                id: 6, 
+                text: "6. Seorang siswa mengamati bahwa semakin TINGGI nilai ujian, semakin sedikit siswa yang remedial. Ia kemudian memperkirakan hasil ujian berikutnya berdasarkan hal tersebut. Konsep berpikir komputasional apa yang digunakan siswa tersebut? Jelaskan!", 
+                kunci: "Pengenalan Pola (Pattern Recognition). Siswa mengamati keteraturan/hubungan antara nilai ujian dan jumlah peserta remedial untuk membuat prediksi.", 
+                evaluator: (ans) => (ans.toLowerCase().includes("pola") || ans.toLowerCase().includes("pattern")) ? 100 : (ans.length > 0 ? 30 : 0) 
+            },
+            { 
+                id: 7, 
+                text: "7. Sebuah stack awalnya kosong. Dilakukan operasi: PUSH A - PUSH B - PUSH C - POP - PUSH D. Data apa yang berada di posisi paling atas stack setelah seluruh operasi tersebut? Silakan diuraikan", 
+                kunci: "Data paling atas adalah D.<br>Uraian: [A] -> [A,B] -> [A,B,C] -> POP C [A,B] -> PUSH D [A,B,D]. Paling atas = D.", 
+                evaluator: (ans) => (ans.toLowerCase().includes("d") && ans.length > 3) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 8, 
+                text: "8. Dalam sistem bilangan Heksadesimal, huruf A mewakili nilai desimal berapa?", 
+                kunci: "10 (Pada Heksadesimal: A=10, B=11, C=12, D=13, E=14, F=15).", 
+                evaluator: (ans) => ans.match(/\b10\b/) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 9, 
+                text: "9. [Mulai - Input Panjang - Input Lebar - Hitung Luas - Selesai]. Menurutmu, apakah flowchart tersebut sudah lengkap? Jika belum, bagian apa yang harus ditambahkan agar flowchart tersebut lengkap?", 
+                kunci: "Belum lengkap. Bagian yang harus ditambahkan adalah proses 'Cetak/Tampilkan Luas' sebelum langkah 'Selesai'.", 
+                evaluator: (ans) => (ans.toLowerCase().includes("belum") || ans.toLowerCase().includes("cetak") || ans.toLowerCase().includes("tampil")) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 10, 
+                text: "10. Ubahlah (1101)₂ menjadi bilangan desimal", 
+                kunci: "13 (Cara: 1×2³ + 1×2² + 0×2¹ + 1×2⁰ = 8 + 4 + 0 + 1 = 13).", 
+                evaluator: (ans) => ans.match(/\b13\b/) ? 100 : (ans.length > 0 ? 20 : 0) 
+            },
+            { 
+                id: 11, 
+                text: "11. Ubahlah kalimat berikut \"SEPATU RODA\" ke dalam bentuk bilangan biner.", 
+                kunci: "Konversi Biner ASCII standar:<br>S = 01010011, E = 01000101, P = 01010000, A = 01000001, T = 01010100, U = 01010101, [Spasi] = 00100000, R = 01010010, O = 01001111, D = 01000100, A = 01000001.", 
+                evaluator: (ans) => (ans.length > 15 && ans.includes("0")) ? 100 : (ans.length > 0 ? 30 : 0) 
+            },
+            { 
+                id: 12, 
+                text: "12. Buktikan bilangan biner dari Nomor 11 kembali menjadi kalimat \"SEPATU RODA\"", 
+                kunci: "Menejerjemahkan tiap blok 8-bit biner dari nomor 11 kembali ke karakter ASCII masing-masing hingga membentuk kata 'SEPATU RODA'.", 
+                evaluator: (ans) => ans.toLowerCase().includes("sepatu roda") ? 100 : (ans.length > 0 ? 30 : 0) 
+            },
+            { 
+                id: 13, 
+                text: "13. Terdapat sebuah antrean [9 - 5 - 3], jika masuk angka 2 dan keluar 2 angka dan masuk lagi angka 7. Bagaimana urutan QUEUE-nya? Buatkan operasi QUEUE-nya dengan DEQUEUE dan ENQUEUE", 
+                kunci: "Urutan akhir: [3 - 2 - 7].<br>Operasi:<br>1. Awal: [9, 5, 3]<br>2. ENQUEUE(2) -> [9, 5, 3, 2]<br>3. DEQUEUE() -> keluar 9 -> [5, 3, 2]<br>4. DEQUEUE() -> keluar 5 -> [3, 2]<br>5. ENQUEUE(7) -> [3, 2, 7]", 
+                evaluator: (ans) => (ans.includes("3") && ans.includes("7") && (ans.toLowerCase().includes("enqueue") || ans.toLowerCase().includes("dequeue"))) ? 100 : (ans.length > 0 ? 30 : 0) 
+            }
         ];
 
         const STORAGE_KEY = "MTSN1_EXAM_SESSION";
